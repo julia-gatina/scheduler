@@ -3,11 +3,18 @@ import DayListItem from './DayListItem';
 
 const DayList = (props) => {
   const { days, day, setDay } = props;
-  const newDayListItem = days.map((item) => {
-    return <DayListItem key={item.id} selected={item.name === day} {...item} setDay={setDay} />;
+  const dynamicDayListItem = days.map((singleDay) => {
+    return (
+      <DayListItem
+        key={singleDay.id}
+        selected={singleDay.name === day}
+        {...singleDay}
+        setDay={setDay}
+      />
+    );
   });
 
-  return <ul> {newDayListItem} </ul>;
-};
+  return <ul> {dynamicDayListItem} </ul>;
+}
 
 export default DayList;
