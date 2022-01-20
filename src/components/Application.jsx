@@ -34,7 +34,7 @@ export default function Application(props) {
           <DayList
             days={days}
             day={"Monday"}
-            setDay={day => console.log(day)} //check why it's logging object???
+            setDay={day => console.log(day)}
           />
         </nav>
         <img
