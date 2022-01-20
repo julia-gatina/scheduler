@@ -7,13 +7,13 @@ const DayList = (props) => {
     return (
       <DayListItem
         key={singleDay.id}
+        name={singleDay.name}
+        spots={singleDay.spots}
         selected={singleDay.name === day}
-        {...singleDay}
         setDay={setDay}
       />
     );
   });
-
   return <ul> {dynamicDayListItem} </ul>;
 }
 
