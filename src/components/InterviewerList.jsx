@@ -13,14 +13,15 @@ export default function InterviewerList(props) {
       name={singleInterviewer.name}
       avatar={singleInterviewer.avatar}
       selected={singleInterviewer.id === interviewer}
+      setInterviewer={() => setInterviewer(singleInterviewer.id)}
       />
     )
   })
 
   return (
-    <section className="interviewers" onClick={setInterviewer}>
+    <section className="interviewers">
       <h4 className="interviewers__header text--light" >Interviewer</h4>
-      <ul className="interviewers__list" >{dynamicInterviewerListItem}</ul>
+      <ul className="interviewers__list">{dynamicInterviewerListItem}</ul>
     </section>
   );
 };
