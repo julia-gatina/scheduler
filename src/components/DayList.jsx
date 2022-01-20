@@ -2,7 +2,7 @@ import React from 'react';
 import DayListItem from './DayListItem';
 
 const DayList = (props) => {
-  const dynamicDayListItem = days.map((singleDay) => {
+  const dynamicDayListItem = props.days.map((singleDay) => {
     return (
       <DayListItem
       key={singleDay.id} 
