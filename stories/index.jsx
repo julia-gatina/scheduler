@@ -9,10 +9,11 @@ import DayList from 'components/DayList';
 import InterviewerListItem from 'components/InterviewerListItem'
 import InterviewerList from 'components/InterviewerList';
 import Appointment from "components/Appointment/index.jsx";
-import Header from 'components/Appointment/Header'
-import Empty from 'components/Appointment/Empty'
-import Show from 'components/Appointment/Show'
-import Confirm from 'components/Appointment/Confirm'
+import Header from 'components/Appointment/Header';
+import Empty from 'components/Appointment/Empty';
+import Show from 'components/Appointment/Show';
+import Confirm from 'components/Appointment/Confirm';
+import Status from 'components/Appointment/Status';
 
 
 
@@ -160,4 +161,5 @@ storiesOf("DayList", module)
         onCancel={action("onCancel")} 
     />
   ))
+  .add("Status", () => (<Status message="Deleting" />))
   
