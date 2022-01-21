@@ -3,50 +3,38 @@ import InterviewerList from "components/InterviewerList";
 import Button from "components/Button";
 import { useState } from "react";
 
-const Form = (props) => {
-  const [student, setStudent] = useState('');
-  const [interviewer, setInterviewer] = useState('null');
-
-  const studentChanged = (event) => {
-    setStudent(event.target.value);
-  };
-
-  const interviewerSelected = props.interviewers.map((singleInterviewer) => {
-    return (
-      <InterviewerListItem 
-        key={singleInterviewer.id}
-        name={singleInterviewer.name}
-        avatar={singleInterviewer.avatar}
-        selected={singleInterviewer.id === props.value}
-        setInterviewer={() => props.onChange(singleInterviewer.id)}
-      />
-    );
-  });
+const Form = () => {
+    const [student, setStudent] = useState(props.student || "");
+    const [interviewer, setInterviewer] = useState(props.interviewer || null);
 
   return (
-    <main className="appointment__card appointment__card--create">
-      <section className="appointment__card-left">
-        <form autoComplete="off">
-          <input
-            className="appointment__create-input text--semi-bold"
-            name="name"
-            type="text"
-            placeholder="Enter Student Name"
-            student={student}
-            value={studentChanged}
+      <main className="appointment__card appointment__card--create">
+        <section className="appointment__card-left">
+          <form autoComplete="off">
+            <input
+                className="appointment__create-input text--semi-bold"
+                name="name"
+                type="text"
+                placeholder="Enter Student Name"
+                onChange={setStudent}
+                value={student}
+                /*
+                  This must be a controlled component
+                  your code goes here
+                */
+            />
+          </form>
+          <InterviewerList
+              /* your code goes here */
           />
-        </form>
-        <InterviewerList 
-       value={interviewerSelected}
-        />
-      </section>
-      <section className="appointment__card-right">
-        <section className="appointment__actions">
-          <Button danger onClick={props.onCancel}>Cancel</Button>
-          <Button confirm onClick={props.onSave(student, interviewer)}>Save</Button>
         </section>
-      </section>
-    </main>
+        <section className="appointment__card-right">
+          <section className="appointment__actions">
+            <Button danger {/* your code goes here */}>Cancel</Button>
+            <Button confirm {/* your code goes here */}>Save</Button>
+          </section>
+        </section>
+      </main>
   );
 };
 
