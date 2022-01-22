@@ -11,16 +11,20 @@ const Form = (props) => {
     };
 
     const reset = () => {
-
+        setStudent("");
+        setInterviewer(null);
     };
+
+    // to cancel entered student name and/or selected interviewer
     const cancel = () => {
-        reset()
+        reset();
+        {props.onCancel()};
     };
 
     return (
         <main className="appointment__card appointment__card--create">
             <section className="appointment__card-left">
-                <form autoComplete="off">
+                <form onSubmit={event => event.preventDefault()} autoComplete="off">
                     <input
                         className="appointment__create-input text--semi-bold"
                         name="name"
@@ -29,7 +33,7 @@ const Form = (props) => {
                         onChange={studentChanged}
                         value={student}
                     />
-                </form>
+                </form >
                 <InterviewerList
                     interviewers={props.interviewers}
                     onChange={setInterviewer}
@@ -38,7 +42,7 @@ const Form = (props) => {
             </section>
             <section className="appointment__card-right">
                 <section className="appointment__actions">
-                    <Button danger onClick={props.onCancel}>Cancel</Button>
+                    <Button danger onClick={cancel}>Cancel</Button>
                     <Button confirm onClick={props.onSave}>Save</Button>
                 </section>
             </section>
