@@ -5,7 +5,7 @@ import Header from "./Header";
 import Empty from "./Empty";
 
 const Appointment = (props) => {
-    const {time, id, interview } = props;
+    const {time, id, interview, interviewer } = props;
     return (
         <article className="appointment" id={id} time={time}>
             <Header time={time}/>
