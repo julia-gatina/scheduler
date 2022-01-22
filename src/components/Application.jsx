@@ -1,4 +1,4 @@
-import React, {useState, useEffect}  from "react";
+import React, {useEffect, useState} from "react";
 import "components/Application.scss";
 import DayList from "components/DayList";
 import Appointment from "./Appointment";
@@ -51,7 +51,6 @@ export default function Application(props) {
     axios.get("/api/days")
       .then((response) => {
         setDays(response.data);
-        console.log(days)
       })
       .catch((error) => {
         console.log(error);
