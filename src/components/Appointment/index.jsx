@@ -4,14 +4,58 @@ import Show from "./Show";
 import Header from "./Header";
 import Empty from "./Empty";
 
-const Appointment = (props) => {
-    const {time, id, interview, interviewer } = props;
+const appointments = [
+    {
+        id: 1,
+        time: "12pm",
+    },
+    {
+        id: 2,
+        time: "1pm",
+        interview: {
+            student: "Lydia Miller-Jones",
+            interviewer: {
+                id: 3,
+                name: "Sylvia Palmer",
+                avatar: "https://i.imgur.com/LpaY82x.png",
+            }
+        }
+    },
+    {
+        id: 3,
+        time: "2pm",
+    },
+    {
+        id: 4,
+        time: "3pm",
+        interview: {
+            student: "Archie Andrews",
+            interviewer: {
+                id: 4,
+                name: "Cohana Roy",
+                avatar: "https://i.imgur.com/FK8V841.jpg",
+            }
+        }
+    },
+    {
+        id: 5,
+        time: "4pm",
+    }
+];
+
+const createAppointmentItem = appointments.map((item) => {
     return (
-        <article className="appointment" id={id} time={time}>
-            <Header time={time}/>
-            {interview ?
-                <Show student={interview.student} interviewer={interview.interviewer.name}/> : <Empty/>}
-        </article>
+        <li className="appointment" key={item.id} time={item.time}>
+            <Header time={item.time}/>
+            {item.interview ?
+                <Show student={item.interview.student} interviewer={item.interview.interviewer.name}/> : <Empty/>}
+        </li>
+    )
+});
+
+const Appointment = () => {
+    return (
+        <ul>{createAppointmentItem}</ul>
     );
 };
 
