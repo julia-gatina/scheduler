@@ -11,7 +11,7 @@ const Appointment = (props) => {
         {props.interview ?
           <Show
             student={props.interview.student}
-            interviewer={props.interview.interviewer.name}
+            interviewer={props.interview.interviewer}
             // onEdit={onEdit}
             // onDelete={onDelete}
           />

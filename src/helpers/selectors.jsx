@@ -1,5 +1,5 @@
 
-const  getAppointmentsForDay = (state, day) => {
+export default function getAppointmentsForDay(state, day) {
   const dayArray = state.days.filter((item) => item.name === day);
   if (dayArray.length === 0) {
     return [];
@@ -9,4 +9,13 @@ const  getAppointmentsForDay = (state, day) => {
   return appointmentsArrayToRender;
 };
 
-export default getAppointmentsForDay;
+export function getInterview (state, interview) {
+
+  return {  
+    "student": "Lydia Miller-Jones",
+    "interviewer": {  
+      "id": 1,
+      "name": "Sylvia Palmer",
+      "avatar": "https://i.imgur.com/LpaY82x.png"
+    }
+  }};
