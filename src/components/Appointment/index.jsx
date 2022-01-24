@@ -12,6 +12,8 @@ const Appointment = (props) => {
           <Show
             student={props.interview.student}
             interviewer={props.interview.interviewer.name}
+            // onEdit={onEdit}
+            // onDelete={onDelete}
           />
           : <Empty/>}
     </article>
