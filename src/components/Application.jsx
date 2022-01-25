@@ -2,8 +2,7 @@ import React, {useEffect, useState} from "react";
 import "components/Application.scss";
 import DayList from "components/DayList";
 import Appointment from "./Appointment";
-import getAppointmentsForDay from "helpers/selectors";
-import getInterview from "helpers/selectors";
+import {getAppointmentsForDay, getInterview} from "helpers/selectors";
 import axios from "axios";
 
 const Application = (props) => {
@@ -41,7 +40,6 @@ const Application = (props) => {
       axios.get("/api/interviewers")
     ])
       .then((all)=> {
-      console.log('response', all)
       const [days, appointments, interviewers] = all;
       console.log("Interviewers -->", interviewers.data)
         setState((prev) => ({
@@ -50,7 +48,6 @@ const Application = (props) => {
           appointments: appointments.data,
           interviewers: interviewers.data,
         }));
-        //console.log('interviewers -->', all.interviewers.data)
       })
   }, []);
 
