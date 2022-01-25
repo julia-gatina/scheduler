@@ -1,18 +1,18 @@
 import React, {useEffect, useState} from "react";
+import axios from "axios";
 import "components/Application.scss";
 import DayList from "components/DayList";
 import Appointment from "./Appointment";
 import {getAppointmentsForDay, getInterview} from "helpers/selectors";
-import axios from "axios";
 
 const Application = (props) => {
+
   const [state, setState] = useState({
     day: "Monday",
     days: [],
     appointments: [], 
     interviewers: {}
   });
-  console.log("this is state ->>>", state)
 
   const setDay = (day) => {
     setState({...state, day})
@@ -41,7 +41,6 @@ const Application = (props) => {
     ])
       .then((all)=> {
       const [days, appointments, interviewers] = all;
-      console.log("Interviewers -->", interviewers.data)
         setState((prev) => ({
           ...prev,
           days: days.data,
@@ -56,7 +55,7 @@ const Application = (props) => {
       <section className="sidebar">
         <img
           className="sidebar--centered"
-          src="images/logo.png"
+          src="/public/images/logo.png"
           alt="Interview Scheduler"
         />
         <hr className="sidebar__separator sidebar--centered"/>
@@ -69,7 +68,7 @@ const Application = (props) => {
         </nav>
         <img
           className="sidebar__lhl sidebar--centered"
-          src="images/lhl.png"
+          src="/public/images/lhl.png"
           alt="Lighthouse Labs"
         />
       </section>
