@@ -13,6 +13,7 @@ const Application = (props) => {
     appointments: [], 
     interviewers: {}
   });
+  console.log("this is state ->>>", state)
 
   const setDay = (day) => {
     setState({...state, day})

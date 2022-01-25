@@ -10,7 +10,8 @@ export default function getAppointmentsForDay(state, day) {
 };
 
 export function getInterview (state, interview) {
-
+  const interviewArray =[]
+console.log("this is state ->> ", state)
   return {  
     "student": "Lydia Miller-Jones",
     "interviewer": {  
