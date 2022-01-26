@@ -18,10 +18,7 @@ const Form = (props) => {
   // to cancel entered student name and/or selected interviewer
   const cancel = () => {
     reset();
-    {
-      props.onCancel()
-    }
-    ;
+    props.onCancel();
   };
 
   return (
@@ -46,7 +43,7 @@ const Form = (props) => {
       <section className="appointment__card-right">
         <section className="appointment__actions">
           <Button danger onClick={cancel}>Cancel</Button>
-          <Button confirm onClick={props.onSave}>Save</Button>
+          <Button confirm onClick={props.onSave(student, interviewer)}>Save</Button>
         </section>
       </section>
     </main>
