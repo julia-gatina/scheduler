@@ -30,7 +30,7 @@ const Appointment = (props) => {
       {mode === CREATE && (
         <Form
           interviewer={props.interviewer}
-          interviewers={[]}
+          interviewers={props.interviewers}
           student={props.student}
           onCancel={back}
           onSave={save}/>)}
