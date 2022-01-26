@@ -55,7 +55,29 @@ const Application = (props) => {
   });
 
   function bookInterview(id, interview) {
-    console.log(id, interview);
+    const appointment = {
+      ...state.appointments[id],
+      interview: {...interview}
+    };
+    const appointments = {
+      ...state.appointments,
+      [id]: appointment
+    };
+
+    setState({
+      ...state,
+      appointments
+    });
+
+    axios.put(`/api/appointments/${id}`, {interview: interview})
+      .then((response) => {
+        console.log(response);
+        // TODO: complete page update
+      })
+      .catch(((error) => {
+        console.error(error);
+        // TODO: handle error properly
+      }))
   };
 
   return (

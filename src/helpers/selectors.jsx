@@ -15,7 +15,6 @@ const getInterviewersForDay = (state, day) => {
     return [];
   }
   const arrayOfAppointmentsToFind = dayArray[0].interviewers;
-  console.log("Day array . interviewers ->>>", dayArray[0].interviewers);
   const interviewersArrayToRender = arrayOfAppointmentsToFind.map((interviewerId) => state.interviewers[interviewerId]
   );
   return interviewersArrayToRender;

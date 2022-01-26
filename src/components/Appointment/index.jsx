@@ -13,8 +13,7 @@ const Appointment = (props) => {
 
   const {mode, transition, back} = useVisualMode(props.interview ? SHOW : EMPTY);
 
-  function save(student, interviewerId) {
-    const interviewer = props.interviewers.find(interviewer => interviewer.id === interviewerId);
+  function save(student, interviewer) {
     const interview = {
       student: student,
       interviewer: interviewer
