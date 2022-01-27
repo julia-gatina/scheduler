@@ -49,9 +49,17 @@ const Application = (props) => {
         interview={interview}
         interviewers={interviewersForDay}
         bookInterview={bookInterview}
+        cancelInterview={cancelInterview}
       />
     );
   });
+
+  function cancelInterview(appointmentId, onCancelInterviewSuccess, onCancelInterviewError) {
+    // local
+    updateAppointmentsListOnUi(appointmentId, null);
+    setTimeout(() => onCancelInterviewSuccess(), 1000);
+    // remote
+  }
 
   function updateAppointmentsListOnUi(id, interview) {
     const appointment = {

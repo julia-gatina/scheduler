@@ -16,6 +16,7 @@ const Appointment = (props) => {
   const CREATE = "CREATE";
   const SAVING = "SAVING";
   const ERROR = "ERROR";
+  const DELETING = "DELETING";
 
   const {mode, transition, back} = useVisualMode(props.interview ? SHOW : EMPTY);
 
@@ -26,17 +27,25 @@ const Appointment = (props) => {
     };
     transition(SAVING);
 
-    function onBookInterviewSuccess() {
-      transition(SHOW);
-    }
-
-    function onBookInterviewError(error) {
+    const onBookInterviewSuccess = () => transition(SHOW);
+    const onBookInterviewError = (error) =>  {
       setErrorMsg(error.message || 'Error booking an Appointment.');
       transition(ERROR);
     }
 
     props.bookInterview(props.id, interview, onBookInterviewSuccess, onBookInterviewError)
+  }
 
+  function onDelete() {
+    transition(DELETING);
+
+    const onCancelInterviewSuccess = () => transition(EMPTY);
+    const onCancelInterviewError = (error) =>  {
+      setErrorMsg(error.message || 'Error canceling an Appointment.');
+      transition(ERROR);
+    }
+
+    props.cancelInterview(props.id, onCancelInterviewSuccess, onCancelInterviewError);
   }
 
   return (
@@ -53,8 +62,10 @@ const Appointment = (props) => {
       {mode === SHOW && (<Show
         student={props.interview.student}
         interviewer={props.interview.interviewer}
+        onDelete={onDelete}
       />)}
-      {mode === SAVING && (<Status message={"Saving"}/>)}
+      {mode === SAVING && (<Status message={"Saving..."}/>)}
+      {mode === DELETING && (<Status message={"Deleting..."}/>)}
     </article>
   );
 };
