@@ -53,7 +53,7 @@ const Application = (props) => {
     );
   });
 
-  function bookInterview(id, interview) {
+  function updateAppointmentsListOnUi(id, interview) {
     const appointment = {
       ...state.appointments[id],
       interview: {...interview}
@@ -66,22 +66,19 @@ const Application = (props) => {
       ...state,
       appointments
     });
+  }
 
+  function bookInterview(id, interview, onBookInterviewSuccess, onBookInterviewError) {
+    // 1. make put request
     axios.put(`/api/appointments/${id}`, {interview: interview})
       .then((response) => {
-        setState({
-          day: state.day,
-          days: state.days,
-          appointments: appointments,
-          interviewers: appointment.interview.interviewer
-        });
-
-        console.log(response);
-        // TODO: complete page update
+        // 2. when successfully persisted update appointments list on UI
+        updateAppointmentsListOnUi(id, interview);
+        onBookInterviewSuccess();
       })
       .catch(((error) => {
         console.error(error);
-        // TODO: handle error properly
+        onBookInterviewError(error);
       }))
   };
 
