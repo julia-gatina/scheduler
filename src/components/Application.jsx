@@ -1,40 +1,18 @@
-import React, {useEffect, useState} from "react";
-import axios from "axios";
+import React from "react";
 import "components/Application.scss";
 import DayList from "components/DayList";
 import Appointment from "./Appointment";
 import {getAppointmentsForDay, getInterview, getInterviewersForDay} from "helpers/selectors";
+import useApplicationData from "../hooks/useApplicationData";
 
-const Application = (props) => {
+const Application = () => {
 
-  const [state, setState] = useState({
-    day: "Monday",
-    days: [],
-    appointments: [],
-    interviewers: {}
-  });
-
-  //fetch days, appointments, and interviewers data
-  useEffect(() => {
-    Promise.all([
-      axios.get("api/days"),
-      axios.get("api/appointments"),
-      axios.get("/api/interviewers")
-    ])
-      .then((all) => {
-        const [days, appointments, interviewers] = all;
-        setState((prev) => ({
-          ...prev,
-          days: days.data,
-          appointments: appointments.data,
-          interviewers: interviewers.data,
-        }));
-      })
-  }, []);
-
-  const setDay = (day) => {
-    setState({...state, day})
-  };
+  const {
+    state,
+    setDay,
+    bookInterview,
+    cancelInterview
+  } = useApplicationData();
 
   // Create appointments render
   const dailyAppointments = getAppointmentsForDay(state, state.day);
@@ -53,47 +31,6 @@ const Application = (props) => {
       />
     );
   });
-
-  function cancelInterview(appointmentId, onCancelInterviewSuccess, onCancelInterviewError) {
-    axios.delete(`/api/appointments/${appointmentId}`)
-      .then((response) => {
-        updateAppointmentsListOnUi(appointmentId, null);
-        onCancelInterviewSuccess();
-      })
-      .catch(((error) => {
-        console.error(error);
-        onCancelInterviewError(error);
-      }));
-  }
-
-  function updateAppointmentsListOnUi(id, interview) {
-    const appointment = {
-      ...state.appointments[id],
-      interview: {...interview}
-    };
-    const appointments = {
-      ...state.appointments,
-      [id]: appointment
-    };
-    setState({
-      ...state,
-      appointments
-    });
-  }
-
-  function bookInterview(id, interview, onBookInterviewSuccess, onBookInterviewError) {
-    // 1. make put request
-    axios.put(`/api/appointments/${id}`, {interview: interview})
-      .then((response) => {
-        // 2. when successfully persisted update appointments list on UI
-        updateAppointmentsListOnUi(id, interview);
-        onBookInterviewSuccess();
-      })
-      .catch(((error) => {
-        console.error(error);
-        onBookInterviewError(error);
-      }))
-  };
 
   return (
     <main className="layout">
