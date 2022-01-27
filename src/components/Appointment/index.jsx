@@ -54,11 +54,11 @@ const Appointment = (props) => {
       <Header time={props.time}/>
       {mode === EMPTY && <Empty onAdd={() => transition(CREATE)}/>}
       {mode === ERROR && <Error message={errorMsg}/>}
-      {mode === CREATE &&
+      {(mode === CREATE || mode === EDIT) &&
         (<Form
-          interviewer={props.interviewer}
+          interviewer={props.interview && props.interview.interviewer.id}
           interviewers={props.interviewers}
-          student={props.student}
+          student={props.interview && props.interview.student}
           onCancel={back}
           onSave={onSave}/>)}
       {mode === SHOW &&
@@ -66,6 +66,7 @@ const Appointment = (props) => {
           student={props.interview.student}
           interviewer={props.interview.interviewer}
           onDelete={() => transition(CONFIRM_DELETE)}
+          onEdit={() => transition(EDIT)}
         />)}
       {mode === SAVING && (<Status message={"Saving..."}/>)}
       {mode === DELETING && (<Status message={"Deleting..."}/>)}
