@@ -16,9 +16,10 @@ const Appointment = (props) => {
   const SHOW = "SHOW";
   const CREATE = "CREATE";
   const SAVING = "SAVING";
+  const EDIT = "EDIT";
   const ERROR = "ERROR";
   const DELETING = "DELETING";
-  const CONFIRM_DELETING = "CONFIRM_DELETING";
+  const CONFIRM_DELETE = "CONFIRM_DELETE";
 
   const {mode, transition, back} = useVisualMode(props.interview ? SHOW : EMPTY);
 
@@ -53,23 +54,26 @@ const Appointment = (props) => {
       <Header time={props.time}/>
       {mode === EMPTY && <Empty onAdd={() => transition(CREATE)}/>}
       {mode === ERROR && <Error message={errorMsg}/>}
-      {mode === CREATE && (<Form
-        interviewer={props.interviewer}
-        interviewers={props.interviewers}
-        student={props.student}
-        onCancel={back}
-        onSave={onSave}/>)}
-      {mode === SHOW && (<Show
-        student={props.interview.student}
-        interviewer={props.interview.interviewer}
-        onDelete={() => transition(CONFIRM_DELETING)}
-      />)}
+      {mode === CREATE &&
+        (<Form
+          interviewer={props.interviewer}
+          interviewers={props.interviewers}
+          student={props.student}
+          onCancel={back}
+          onSave={onSave}/>)}
+      {mode === SHOW &&
+        (<Show
+          student={props.interview.student}
+          interviewer={props.interview.interviewer}
+          onDelete={() => transition(CONFIRM_DELETE)}
+        />)}
       {mode === SAVING && (<Status message={"Saving..."}/>)}
       {mode === DELETING && (<Status message={"Deleting..."}/>)}
-      {mode === CONFIRM_DELETING && (<Confirm
-        onCancel={back}
-        onConfirm={onDelete}
-      />)}
+      {mode === CONFIRM_DELETE &&
+        (<Confirm
+          onCancel={back}
+          onConfirm={onDelete}
+        />)}
     </article>
   );
 };

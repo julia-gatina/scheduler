@@ -55,10 +55,15 @@ const Application = (props) => {
   });
 
   function cancelInterview(appointmentId, onCancelInterviewSuccess, onCancelInterviewError) {
-    // local
-    updateAppointmentsListOnUi(appointmentId, null);
-    setTimeout(() => onCancelInterviewSuccess(), 1000);
-    // remote
+    axios.delete(`/api/appointments/${appointmentId}`)
+      .then((response) => {
+        updateAppointmentsListOnUi(appointmentId, null);
+        onCancelInterviewSuccess();
+      })
+      .catch(((error) => {
+        console.error(error);
+        onCancelInterviewError(error);
+      }));
   }
 
   function updateAppointmentsListOnUi(id, interview) {
