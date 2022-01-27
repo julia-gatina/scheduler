@@ -7,7 +7,6 @@ import {getAppointmentsForDay, getInterview, getInterviewersForDay} from "helper
 
 const Application = (props) => {
 
-
   const [state, setState] = useState({
     day: "Monday",
     days: [],
@@ -63,7 +62,6 @@ const Application = (props) => {
       ...state.appointments,
       [id]: appointment
     };
-
     setState({
       ...state,
       appointments
@@ -71,6 +69,13 @@ const Application = (props) => {
 
     axios.put(`/api/appointments/${id}`, {interview: interview})
       .then((response) => {
+        setState({
+          day: state.day,
+          days: state.days,
+          appointments: appointments,
+          interviewers: appointment.interview.interviewer
+        });
+
         console.log(response);
         // TODO: complete page update
       })
