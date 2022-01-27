@@ -32,7 +32,7 @@ const Appointment = (props) => {
 
     const onBookInterviewSuccess = () => transition(SHOW);
     const onBookInterviewError = (error) => {
-      setErrorMsg(error.message || 'Error booking an Appointment.');
+      setErrorMsg(error.message || 'Error saving an Appointment.');
       transition(ERROR);
     }
     props.bookInterview(props.id, interview, onBookInterviewSuccess, onBookInterviewError)
@@ -53,7 +53,11 @@ const Appointment = (props) => {
     <article className="appointment">
       <Header time={props.time}/>
       {mode === EMPTY && <Empty onAdd={() => transition(CREATE)}/>}
-      {mode === ERROR && <Error message={errorMsg}/>}
+      {mode === ERROR &&
+        (<Error
+          message={errorMsg}
+          onClose={back}
+        />)}
       {(mode === CREATE || mode === EDIT) &&
         (<Form
           interviewer={props.interview && props.interview.interviewer.id}
