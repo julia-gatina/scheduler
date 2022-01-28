@@ -23,7 +23,7 @@ const Form = (props) => {
 
   const handleSaveClick = () => {
     props.onSave(student, interviewer);
-  }
+  };
 
   return (
     <main className="appointment__card appointment__card--create">
@@ -37,12 +37,18 @@ const Form = (props) => {
             onChange={studentChanged}
             value={student}
           />
+          <line className="form-alert-student">
+            Please enter Student name
+          </line>
         </form>
         <InterviewerList
           interviewers={props.interviewers}
           onChange={setInterviewer}
           selected={interviewer}
         />
+        <line className="form-alert-interviewer">
+          Please select Interviewer
+        </line>
       </section>
       <section className="appointment__card-right">
         <section className="appointment__actions">

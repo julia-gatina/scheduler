@@ -169,4 +169,16 @@ $appointment-height: 11rem;
     color: $danger-color;
     margin-bottom: 1rem;
   }
+
+  .form-alert-student {
+    color:red;
+    font-size: large;
+    display:none
+  }
+
+  .form-alert-interviewer {
+    color:red;
+    font-size: large;
+    display:none
+  }
 }
