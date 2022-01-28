@@ -11,6 +11,8 @@ const Form = (props) => {
   const reset = () => {
     setStudent("");
     setInterviewer(null);
+    setErrorStudent("");
+    setErrorInterviewer("");
   };
 
   // to cancel entered student name and/or selected interviewer
@@ -24,7 +26,6 @@ const Form = (props) => {
       setErrorStudent("Student name cannot be blank");
       return;
     }
-
     if (!interviewer) {
       setErrorInterviewer("Please select an Interviewer");
       return;
