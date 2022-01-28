@@ -8,6 +8,9 @@ const Form = (props) => {
   const [errorStudent, setErrorStudent] = useState("");
   const [errorInterviewer, setErrorInterviewer] = useState("");
 
+  /**
+   * resets all state to initial
+   */
   const reset = () => {
     setStudent("");
     setInterviewer(null);
@@ -15,12 +18,17 @@ const Form = (props) => {
     setErrorInterviewer("");
   };
 
-  // to cancel entered student name and/or selected interviewer
+  /**
+   *   cancels entered student name and/or selected interviewer
+   */
   const cancel = () => {
     reset();
     props.onCancel();
   };
 
+  /**
+   * validates if student and interviewer provided, calls onSave function
+   */
   const handleSaveClick = () => {
     if (student === "") {
       setErrorStudent("Student name cannot be blank");
@@ -30,6 +38,9 @@ const Form = (props) => {
       setErrorInterviewer("Please select an Interviewer");
       return;
     }
+
+    setErrorStudent("");
+    setErrorInterviewer("");
     props.onSave(student, interviewer);
   };
 
