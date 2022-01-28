@@ -31,7 +31,58 @@ const useApplicationData = () => {
   const setDay = (day) => {
     setState({...state, day})
   };
+ console.log("initial days state ->> ",state.days)
 
+  /**
+   *
+   * @param currentDay
+   * @param appointments
+   * @returns {number} how many free spots current day has
+   */
+  const countDaySpots = (currentDay, appointments) => {
+   let spots = 0;
+    for (const id of currentDay.appointments) {
+      const appointment = appointments[id];
+      if (!appointment.interview) {
+        spots ++;
+      }
+    }
+    return spots;
+  };
+
+  const updateSpotsRemaining = (appointments, appointmentId, state, apptId) => {
+   const newDaysArray = [...state.days];
+    const currentDay = newDaysArray.days.find(day => day.name === state.day);
+    const spots = countDaySpots(currentDay, appointments)
+
+    const appointmentsArray = currentDay.appointments;
+    console.log("Current day appointmnets ->>", appointmentsArray)
+    let spots = currentDay.spots;
+
+    for (const id of appointmentsArray) {
+      return appointments[id].interview ? spots -= 1 : spots += 1;
+    }
+
+    const daysArray = state.days.map(day => {
+      if (day.name === currentDay.name) {
+        day.spots = spots
+      }
+    });
+
+
+    console.log("this is appointmentss - >>", appointments)
+    console.log('Current day ->>', currentDay);
+    console.log("this is days ->>", state.days);
+
+    return daysArray;
+  };
+
+  /**
+   *
+   * @param appointmentId
+   * @param onCancelInterviewSuccess function
+   * @param onCancelInterviewError function
+   */
   const cancelInterview = (appointmentId, onCancelInterviewSuccess, onCancelInterviewError) => {
     axios.delete(`/api/appointments/${appointmentId}`)
       .then((response) => {
@@ -55,7 +106,9 @@ const useApplicationData = () => {
     };
     setState({
       ...state,
-      appointments
+      appointments,
+      days:updateSpotsRemaining(appointments, id, state)
+
     });
   }
 
@@ -66,14 +119,15 @@ const useApplicationData = () => {
         // 2. when successfully persisted update appointments list on UI
         updateAppointmentsListOnUi(id, interview);
         onBookInterviewSuccess();
+
       })
       .catch(((error) => {
         console.error(error);
         onBookInterviewError(error);
       }))
   };
-
   return {state, setDay, bookInterview, cancelInterview};
 };
+
 
 export default useApplicationData;
