@@ -6,10 +6,6 @@ const Form = (props) => {
   const [student, setStudent] = useState(props.student || "");
   const [interviewer, setInterviewer] = useState(props.interviewer || null);
 
-  const studentChanged = (event) => {
-    setStudent(event.target.value);
-  };
-
   const reset = () => {
     setStudent("");
     setInterviewer(null);
@@ -34,8 +30,11 @@ const Form = (props) => {
             name="name"
             type="text"
             placeholder="Enter Student Name"
-            onChange={studentChanged}
             value={student}
+            onChange={event => {
+              setStudent(event.target.value);
+            }}
+            data-testid="student-name-input"
           />
           <line className="form-alert-student">
             Please enter Student name
