@@ -28,6 +28,10 @@ const Appointment = (props) => {
       student: student,
       interviewer: interviewer
     };
+    if (student ==='' || interviewer === null) {
+      setErrorMsg('Please enter Student name and select an Interviewer');
+      return transition(ERROR, false);
+    }
     transition(SAVING);
 
     const onBookInterviewSuccess = () => transition(SHOW);
