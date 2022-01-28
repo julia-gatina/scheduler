@@ -35,34 +35,24 @@ const useApplicationData = () => {
   /**
    *
    * @param currentDay
-   * @param appointments
+   * @param allAppointments
    * @returns {number} how many free spots current day has
    */
-  const countDaySpots = (currentDay, appointments) => {
-   let spots = 0;
-    for (const id of currentDay.appointments) {
-      const appointment = appointments[id];
-      if (!appointment.interview) {
-        spots ++;
-      }
-    }
-    return spots;
+  const countDaySpots = (currentDay, allAppointments) => {
+    return currentDay.appointments
+      .map(apptId => allAppointments[apptId]) // appointment objects
+      .filter(appt => !appt.interview) // appointment with interview === null
+      .length
   };
 
-  /**
-   *
-   * @param appointments
-   * @param appointmentId
-   * @param state
-   * @param apptId
-   * @returns {(*|{spots: number}|T)[]}
-   */
-  const updateSpotsRemaining = (state, appointments) => {
-    const currentDay = state.days.find(day => day.name === state.day);
+
+  const getSpotsRemaining = (state, appointments) => {
+    const currentDayName = state.day;
+    const currentDay = state.days.find(day => day.name === currentDayName);
     const spots = countDaySpots(currentDay, appointments)
 
     const newCurrentDay = {...currentDay, spots};
-    const newDaysArray = state.days.map(day => day.name === state.day ? newCurrentDay : day)
+    const newDaysArray = state.days.map(day => day.name === currentDayName ? newCurrentDay : day)
 
     return newDaysArray;
   };
@@ -88,7 +78,7 @@ const useApplicationData = () => {
   const updateAppointmentsListOnUi = (id, interview) => {
     const appointment = {
       ...state.appointments[id],
-      interview: {...interview}
+      interview: interview ? {...interview} : null
     };
     const appointments = {
       ...state.appointments,
@@ -97,7 +87,7 @@ const useApplicationData = () => {
     setState({
       ...state,
       appointments,
-      days:updateSpotsRemaining(state, appointments)
+      days: getSpotsRemaining(state, appointments)
 
     });
   }
