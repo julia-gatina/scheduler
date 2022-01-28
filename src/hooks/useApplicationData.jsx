@@ -58,7 +58,7 @@ const useApplicationData = () => {
    * @param apptId
    * @returns {(*|{spots: number}|T)[]}
    */
-  const updateSpotsRemaining = (state, appointments => {
+  const updateSpotsRemaining = (state, appointments) => {
     const currentDay = state.days.find(day => day.name === state.day);
     const spots = countDaySpots(currentDay, appointments)
 
