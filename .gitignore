@@ -31,3 +31,4 @@ yarn-error.log*
 .idea/inspectionProfiles/Project_Default.xml
 .idea/.gitignore
 package-lock.json
+/.idea/fastRequestCollection.xml
