@@ -50,31 +50,22 @@ const useApplicationData = () => {
     return spots;
   };
 
-  const updateSpotsRemaining = (appointments, appointmentId, state, apptId) => {
-   const newDaysArray = [...state.days];
-    const currentDay = newDaysArray.days.find(day => day.name === state.day);
+  /**
+   *
+   * @param appointments
+   * @param appointmentId
+   * @param state
+   * @param apptId
+   * @returns {(*|{spots: number}|T)[]}
+   */
+  const updateSpotsRemaining = (state, appointments => {
+    const currentDay = state.days.find(day => day.name === state.day);
     const spots = countDaySpots(currentDay, appointments)
 
-    const appointmentsArray = currentDay.appointments;
-    console.log("Current day appointmnets ->>", appointmentsArray)
-    let spots = currentDay.spots;
+    const newCurrentDay = {...currentDay, spots};
+    const newDaysArray = state.days.map(day => day.name === state.day ? newCurrentDay : day)
 
-    for (const id of appointmentsArray) {
-      return appointments[id].interview ? spots -= 1 : spots += 1;
-    }
-
-    const daysArray = state.days.map(day => {
-      if (day.name === currentDay.name) {
-        day.spots = spots
-      }
-    });
-
-
-    console.log("this is appointmentss - >>", appointments)
-    console.log('Current day ->>', currentDay);
-    console.log("this is days ->>", state.days);
-
-    return daysArray;
+    return newDaysArray;
   };
 
   /**
@@ -107,7 +98,7 @@ const useApplicationData = () => {
     setState({
       ...state,
       appointments,
-      days:updateSpotsRemaining(appointments, id, state)
+      days:updateSpotsRemaining(state, appointments)
 
     });
   }
