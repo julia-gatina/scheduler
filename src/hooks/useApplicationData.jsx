@@ -31,7 +31,6 @@ const useApplicationData = () => {
   const setDay = (day) => {
     setState({...state, day})
   };
- console.log("initial days state ->> ",state.days)
 
   /**
    *
