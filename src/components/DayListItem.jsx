@@ -6,7 +6,7 @@ export default function DayListItem(props) {
 
   const dayClass = classNames('day-list__item', {
     'day-list__item--selected': props.selected,
-    'day-list__item--full': props.full,
+    'day-list__item--full': props.full || props.spots === 0,
   });
 
   const renderSpotsMessage = (number) => {
@@ -23,7 +23,7 @@ export default function DayListItem(props) {
   };
 
   return (
-    <li className={dayClass} onClick={() => props.setDay(props.name)} selected={props.selected}>
+    <li className={dayClass} data-testid="day" onClick={() => props.setDay(props.name)} selected={props.selected}>
       <h2 className="text--regular">
         {props.name}
       </h2>
