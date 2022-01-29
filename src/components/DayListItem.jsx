@@ -2,8 +2,13 @@ import React from 'react';
 import classNames from 'classnames';
 import 'components/DayListItem.scss';
 
-export default function DayListItem(props) {
-
+/**
+ * creates an individual day to render
+ * @param props
+ * @returns {JSX.Element}
+ * @constructor
+ */
+const DayListItem = (props) => {
   const dayClass = classNames('day-list__item', {
     'day-list__item--selected': props.selected,
     'day-list__item--full': props.full || props.spots === 0,
@@ -11,14 +16,13 @@ export default function DayListItem(props) {
 
   const renderSpotsMessage = (number) => {
     let spotsString = `${number} spots`;
+
     if (number === 1) {
-      spotsString ='1 spot';
+      spotsString = '1 spot';
     }
     if (number === 0) {
       spotsString = 'no spots';
     }
-
-
     return spotsString;
   };
 
@@ -31,3 +35,5 @@ export default function DayListItem(props) {
     </li>
   );
 };
+
+export default DayListItem;

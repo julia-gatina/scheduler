@@ -1,5 +1,11 @@
 import React from "react"
 
+/**
+ * error message form which shows custom error message
+ * @param props
+ * @returns {JSX.Element}
+ * @constructor
+ */
 const Error = (props) => {
   return (
     <main className="appointment__card appointment__card--error">

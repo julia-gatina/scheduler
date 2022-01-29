@@ -1,6 +1,10 @@
 import React, {useEffect, useState} from "react";
 import axios from "axios";
 
+/**
+ * responsible for setting app state and fetching data
+ * @returns {{bookInterview: bookInterview, setDay: setDay, state: {appointments: *[], interviewers: {}, days: *[], day: string}, cancelInterview: cancelInterview}}
+ */
 const useApplicationData = () => {
 
   const [state, setState] = useState({
@@ -10,7 +14,9 @@ const useApplicationData = () => {
     interviewers: {}
   });
 
-  //fetch days, appointments, and interviewers data
+  /**
+   * api request to GET days, appointments, and interviewers data
+   */
   useEffect(() => {
     Promise.all([
       axios.get("api/days"),
@@ -28,12 +34,16 @@ const useApplicationData = () => {
       })
   }, []);
 
+  /**
+   * sets current day
+   * @param day
+   */
   const setDay = (day) => {
     setState({...state, day})
   };
 
   /**
-   *
+   * helper to calculate available spots for current day
    * @param currentDay
    * @param allAppointments
    * @returns {number} how many free spots current day has
@@ -45,12 +55,16 @@ const useApplicationData = () => {
       .length
   };
 
-
+  /**
+   * updates array of all days with spots available for current day
+   * @param state
+   * @param appointments
+   * @returns {updated days array}
+   */
   const getSpotsRemaining = (state, appointments) => {
     const currentDayName = state.day;
     const currentDay = state.days.find(day => day.name === currentDayName);
     const spots = countDaySpots(currentDay, appointments)
-
     const newCurrentDay = {...currentDay, spots};
     const newDaysArray = state.days.map(day => day.name === currentDayName ? newCurrentDay : day)
 
@@ -58,7 +72,27 @@ const useApplicationData = () => {
   };
 
   /**
-   *
+   * called when an interview is booked, PUT api request
+   * @param id
+   * @param interview
+   * @param onBookInterviewSuccess
+   * @param onBookInterviewError
+   */
+  const bookInterview = (id, interview, onBookInterviewSuccess, onBookInterviewError) => {
+    axios.put(`/api/appointments/${id}`, {interview: interview})
+      .then((response) => {
+        // 2. when successfully persisted update appointments list on UI
+        updateAppointmentsListOnUi(id, interview);
+        onBookInterviewSuccess();
+      })
+      .catch(((error) => {
+        console.error(error);
+        onBookInterviewError(error);
+      }))
+  };
+
+  /**
+   * called when an interview is cancelled, DELETE api request
    * @param appointmentId
    * @param onCancelInterviewSuccess function
    * @param onCancelInterviewError function
@@ -75,6 +109,11 @@ const useApplicationData = () => {
       }));
   }
 
+  /**
+   * updates UI with the new state when an interview is booked or cancelled
+   * @param id
+   * @param interview
+   */
   const updateAppointmentsListOnUi = (id, interview) => {
     const appointment = {
       ...state.appointments[id],
@@ -90,24 +129,8 @@ const useApplicationData = () => {
       days: getSpotsRemaining(state, appointments)
 
     });
-  }
-
-  const bookInterview = (id, interview, onBookInterviewSuccess, onBookInterviewError) => {
-    // 1. make put request
-    axios.put(`/api/appointments/${id}`, {interview: interview})
-      .then((response) => {
-        // 2. when successfully persisted update appointments list on UI
-        updateAppointmentsListOnUi(id, interview);
-        onBookInterviewSuccess();
-
-      })
-      .catch(((error) => {
-        console.error(error);
-        onBookInterviewError(error);
-      }))
   };
   return {state, setDay, bookInterview, cancelInterview};
 };
-
 
 export default useApplicationData;

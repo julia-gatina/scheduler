@@ -1,5 +1,11 @@
 import React from "react";
 
+/**
+ * header of an appointment, displays time
+ * @param props
+ * @returns {JSX.Element}
+ * @constructor
+ */
 const Header = (props) => {
   return (
     <header className="appointment__time">

@@ -5,8 +5,12 @@ import Appointment from "./Appointment";
 import {getAppointmentsForDay, getInterview, getInterviewersForDay} from "helpers/selectors";
 import useApplicationData from "../hooks/useApplicationData";
 
+/**
+ * main application component
+ * @returns {JSX.Element}
+ * @constructor
+ */
 const Application = () => {
-
   const {
     state,
     setDay,
@@ -14,7 +18,6 @@ const Application = () => {
     cancelInterview
   } = useApplicationData();
 
-  // Create appointments render
   const dailyAppointments = getAppointmentsForDay(state, state.day);
   const schedule = dailyAppointments.map((appointment) => {
     const interview = getInterview(state, appointment.interview);

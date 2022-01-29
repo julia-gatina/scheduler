@@ -1,15 +1,20 @@
 import React from "react";
 import 'components/InterviewerListItem.scss';
 
-
+/**
+ * created a single interviewer component
+ * @param props
+ * @returns {JSX.Element}
+ * @constructor
+ */
 const InterviewerListItem = (props) => {
   let interviewerClass = "interviewers__item";
   let interviewerName = '';
+
   if (props.selected) {
     interviewerClass += "--selected";
     interviewerName = props.name;
   }
-
   return (
     <li className={interviewerClass} onClick={props.setInterviewer}>
       <img

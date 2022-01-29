@@ -2,6 +2,12 @@ import React, {useState} from "react"
 import InterviewerList from "components/InterviewerList";
 import Button from "components/Button";
 
+/**
+ * create/edit appointment form
+ * @param props
+ * @returns {JSX.Element}
+ * @constructor
+ */
 const Form = (props) => {
   const [student, setStudent] = useState(props.student || "");
   const [interviewer, setInterviewer] = useState(props.interviewer || null);
@@ -38,7 +44,6 @@ const Form = (props) => {
       setErrorInterviewer("Please select an Interviewer");
       return;
     }
-
     setErrorStudent("");
     setErrorInterviewer("");
     props.onSave(student, interviewer);

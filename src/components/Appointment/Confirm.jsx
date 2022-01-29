@@ -1,6 +1,13 @@
 import React from "react";
 import Button from "components/Button";
 
+/**
+ *
+ * renders confirmation message upon appointment deletion
+ * @param props
+ * @returns {JSX.Element}
+ *
+ */
 const Confirm = (props) => {
   return (
     <main className="appointment__card appointment__card--confirm">
