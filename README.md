@@ -1,4 +1,5 @@
-!["Scheduler icon](https://raw.githubusercontent.com/julia-gatina/scheduler/master/public/images/favicon.ico) ## Interview Scheduler
+!["Scheduler icon](https://raw.githubusercontent.com/julia-gatina/scheduler/master/public/images/favicon.ico) 
+## Interview Scheduler
 
 React application that allows users to book, edit and cancel interviews. 
 
