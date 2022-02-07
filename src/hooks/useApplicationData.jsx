@@ -1,4 +1,4 @@
-import React, {useEffect, useState} from "react";
+import {useEffect, useState} from "react";
 import axios from "axios";
 
 /**
@@ -123,12 +123,12 @@ const useApplicationData = () => {
       ...state.appointments,
       [id]: appointment
     };
-    setState({
-      ...state,
+    setState(prev => ({
+      ...prev,
       appointments,
       days: getSpotsRemaining(state, appointments)
 
-    });
+    }));
   };
   return {state, setDay, bookInterview, cancelInterview};
 };

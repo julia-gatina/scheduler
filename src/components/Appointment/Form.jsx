@@ -37,10 +37,6 @@ const Form = (props) => {
     setErrorStudent('');
   };
 
-  const selectInterviewer = (interviewer) => {
-    setInterviewer(interviewer);
-    setErrorInterviewer('');
-  }
   /**
    * validates if student and interviewer provided, calls onSave function
    */
