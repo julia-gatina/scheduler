@@ -1,7 +1,9 @@
 !["Scheduler icon](https://raw.githubusercontent.com/julia-gatina/scheduler/master/public/images/favicon.ico) 
 ## Interview Scheduler
 
-React application that allows users to book, edit and cancel interviews. 
+A single page application, built using React, that allows users to book, edit and cancel interviews. 
+Data is persisted by the API server using a PostgreSQL database.
+The client application communicates with an API server over HTTP, using the JSON format.
 
 When users open the app they can see right away how many available spots each day has on the left nav bar. 
 If there are no more spots, the day color is dimmed, like Friday on the image below. Selected day is white, and when you hover over a day, it is red.
@@ -23,6 +25,14 @@ so that no interviews get deleted by mistake.
 
 !["Scheduler confirmation to delete an appointment"](https://github.com/julia-gatina/scheduler/blob/master/docs/delete_appt_confirmation.png?raw=true)
 
+## Dependencies
+- React
+- Webpack, Babel
+- Axios
+- Storybook
+- Webpack Dev Server
+- Jest
+- Testing Library
 
 ## Setup
 Install dependencies with the following command:
@@ -30,9 +40,15 @@ Install dependencies with the following command:
 ```sh
 npm install
 ```
+## Installing the backend Scheduler API Server
+Fork and clone the repository. Then follow the README instructions to setup and run the API server:
+
+```sh
+https://github.com/lighthouse-labs/scheduler-api
+```
 
 ## Running Webpack Development Server
-If you want to run your entire application in development mode
+If you want to run your entire application in development mode:
 
 ```sh
 npm start
