@@ -34,13 +34,18 @@ const Form = (props) => {
 
   const inputStudentName = (event)  => {
     setStudent(event.target.value);
-    setErrorStudent("");
+    setErrorStudent('');
+  };
+
+  const selectInterviewer = (interviewer) => {
+    setInterviewer(interviewer);
+    setErrorInterviewer('');
   }
   /**
    * validates if student and interviewer provided, calls onSave function
    */
   const handleSaveClick = () => {
-    if (student === "") {
+    if (student === '') {
       setErrorStudent("Student name cannot be blank");
       return;
     }
@@ -48,8 +53,8 @@ const Form = (props) => {
       setErrorInterviewer("Please select an Interviewer");
       return;
     }
-    setErrorStudent("");
-    setErrorInterviewer("");
+    setErrorStudent('');
+    setErrorInterviewer('');
     props.onSave(student, interviewer);
   };
 
@@ -70,7 +75,7 @@ const Form = (props) => {
         </form>
         <InterviewerList
           interviewers={props.interviewers}
-          onChange={setInterviewer}
+          onChange={(event) => { setInterviewer(event); setErrorInterviewer(''); }}
           selected={interviewer}
         />
         <section className="appointment__validation">{errorInterviewer}</section>
