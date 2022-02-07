@@ -47,8 +47,8 @@ const Appointment = (props) => {
      */
     const onBookInterviewSuccess = () => transition(SHOW);
     const onBookInterviewError = (error) => {
-      setErrorMsg(error.message || 'Error saving an Appointment.');
-      transition(ERROR, true);
+      setErrorMsg('Error saving an Appointment.');
+      transition(ERROR, false);
     }
     props.bookInterview(props.id, interview, onBookInterviewSuccess, onBookInterviewError)
   }
@@ -64,7 +64,7 @@ const Appointment = (props) => {
      */
     const onCancelInterviewSuccess = () => transition(EMPTY);
     const onCancelInterviewError = (error) => {
-      setErrorMsg(error.message || 'Error canceling an Appointment.');
+      setErrorMsg('Error canceling an Appointment.');
       transition(ERROR, true);
     }
     props.cancelInterview(props.id, onCancelInterviewSuccess, onCancelInterviewError);
