@@ -32,6 +32,10 @@ const Form = (props) => {
     props.onCancel();
   };
 
+  const inputStudentName = (event)  => {
+    setStudent(event.target.value);
+    setErrorStudent("");
+  }
   /**
    * validates if student and interviewer provided, calls onSave function
    */
@@ -59,9 +63,7 @@ const Form = (props) => {
             type="text"
             placeholder="Enter Student Name"
             value={student}
-            onChange={event => {
-              setStudent(event.target.value);
-            }}
+            onChange={inputStudentName}
             data-testid="student-name-input"
           />
           <section className="appointment__validation">{errorStudent}</section>
